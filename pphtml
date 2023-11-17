@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Music Note Game</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <div id="streakCounter">Streak: 0</div>
+    <div id="gameContainer">
+        <button id="startButton">Start Game</button>
+        <div id="noteBoxes">
+            <div class="noteBox">C</div>
+            <div class="noteBox">D</div>
+            <div class="noteBox">E</div>
+            <div class="noteBox">F</div>
+            <div class="noteBox">G</div>
+            <div class="noteBox">A</div>
+            <div class="noteBox">B</div>
+            <div class="noteBox">C5</div>
+        </div>
+        <input type="text" id="userGuess" placeholder="Enter your guess">
+        <button id="submitGuess">Submit Guess</button>
+        <div id="feedback"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+
+        
