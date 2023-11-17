@@ -1,0 +1,66 @@
+// Define the frequencies for the 8-note scale
+const notes = [261.63, 293.66, 328.63, 349.23, 392.00, 440.00, 493.88, 523.25]; 
+const noteNames = ["C", "D", "E", "F", "G", "A", "B", "C5"];
+let currentNoteIndex = -1;
+
+// Create the audio context
+const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+function playScale() {
+    notes.forEach((frequency, index) => {
+        playTone(frequency, 1, index * 0.8);
+    });
+}
+
+function playRandomNote() {
+    currentNoteIndex = Math.floor(Math.random() * notes.length);
+    const randomNote = notes[currentNoteIndex];
+    setTimeout(() => {
+        playTone(randomNote, 1, 0);
+    }, notes.length * 800);
+}
+
+function playTone(frequency, duration, delay = 0) {
+    const oscillator = audioContext.createOscillator();
+    oscillator.frequency.value = frequency;
+    oscillator.type = 'sine';
+
+    const gainNode = audioContext.createGain();
+    gainNode.gain.setValueAtTime(0, audioContext.currentTime + delay);
+    gainNode.gain.linearRampToValueAtTime(0.5, audioContext.currentTime + delay + 0.01);
+    gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + delay + duration - 0.1);
+
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+    oscillator.start(audioContext.currentTime + delay);
+    oscillator.stop(audioContext.currentTime + delay + duration);
+}
+
+let correctStreak = 0;
+
+function updateStreakCounter() {
+    document.getElementById("streakCounter").innerText = "Streak: " + correctStreak;
+}
+
+document.getElementById("startButton").addEventListener("click", function() {
+    playScale();
+    playRandomNote();
+});
+
+document.getElementById("submitGuess").addEventListener("click", function() {
+    const userGuess = document.getElementById("userGuess").value.toUpperCase();
+    const correctAnswer = noteNames[currentNoteIndex];
+
+    if (userGuess === correctAnswer) {
+        alert("Congrats! You guessed correctly.");
+        correctStreak ++;
+        playScale();
+        playRandomNote();
+    } else {
+        alert(`Incorrect. The note was ${correctAnswer}`);
+        correctStreak = 0; //reset streak
+        playScale();
+        playRandomNote();
+    }
+    updateStreakCounter();
+});
