@@ -1,0 +1,44 @@
+/* style.css */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+#streakCounter {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    color: #333;
+}
+
+#gameContainer {
+    margin-top: 50px;
+}
+.noteBox {
+    display: inline-block;
+    margin: 5px;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+    cursor: pointer;
+}
+
+.noteBox:hover {
+    background-color: #e0e0e0;
+}
+
+#noteDisplay {
+    font-size: 24px;
+    margin: 20px;
+}
+
+#userGuess {
+    margin: 10px;
+}
+
+#feedback {
+    margin-top: 20px;
+    color: green;
+}
